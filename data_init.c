@@ -73,6 +73,10 @@ int	process_keypress(int keysym, t_fdf *data)
 int	handle_keypress(int keysym, t_fdf *data)
 {
 	process_keypress(keysym, data);
+	if (keysym == KEY_R)
+		data->coef -= 1;
+	else if (keysym == KEY_F)
+		data->coef += 1;
 	process_space(keysym, data);
 	mlx_destroy_image(data->mlx_ptr, data->image);
 	data->image = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
@@ -98,7 +102,7 @@ int	data_init(t_fdf *data)
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 		return (MLX_ERROR);
-	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_WIDTH, WIN_WIDTH, "FdF");
+	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "FdF");
 	if (!data->win_ptr)
 		return (MLX_ERROR);
 	data->image = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
